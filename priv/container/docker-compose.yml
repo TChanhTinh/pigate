@@ -1,0 +1,12 @@
+version: '3.1'
+services:
+  pigate_db:
+    image: mssql
+    container_name: "pigate_mssql"
+    restart: always
+    ports:
+      - 1433:1433
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=sa2021@2
+      - MSSQL_PID=Developer
