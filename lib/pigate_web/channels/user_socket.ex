@@ -2,7 +2,7 @@ defmodule PigateWeb.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "room:*", PigateWeb.RoomChannel
+  channel "room:*", PigateWeb.RoomChannel
 
   # Socket params are passed from the client and can
   # be used to verify and authenticate a user. After

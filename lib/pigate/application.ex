@@ -17,7 +17,8 @@ defmodule Pigate.Application do
       PigateWeb.Endpoint,
       # Start a worker by calling: Pigate.Worker.start_link(arg)
       # {Pigate.Worker, arg}
-      {Pigate.Mqtt.Connection, {"data_mqtt", "192.168.101.178"}}
+      {Pigate.Mqtt.Connection, {"data_mqtt", "192.168.101.137"}},
+      {Pigate.Mqtt.Store, []}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

@@ -25,15 +25,16 @@ defmodule Pigate.Mqtt.Connection do
     Tortoise.Connection.start_link(
       client_id: hostname,
       server: {Tortoise.Transport.Tcp, host: host, port: 1883},
-      handler: {Tortoise.Handler.Logger, []}
+      handler: {Pigate.MQTT.Handler, []},
+      subscriptions: [{"#", 0}]
     )
 
     {:ok, {hostname, []}}
   end
 
   def handle_cast({:subscribe, topic, qos}, {hostname, subscribed}) do
-    Tortoise.Connection.subscribe(HelloWorld, {topic, qos})
-    #{:ok, topic, {hostname, [subscribed ++ {topic, qos}]}}
+    Tortoise.Connection.subscribe(hostname, {topic, qos})
+
     {:noreply, {hostname, subscribed}}
   end
 
