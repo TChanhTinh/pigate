@@ -1,0 +1,10 @@
+version: "3.3"
+services:
+  postgres:
+    image: "postgres:13"
+    container_name: pigate-pg
+    environment:
+      POSTGRES_PASSWORD: "pigateDev!"
+      POSTGRES_DB: pigate_dev
+    ports:
+      - 5432:5432

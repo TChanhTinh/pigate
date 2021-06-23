@@ -2,8 +2,8 @@ use Mix.Config
 
 # Configure your database
 config :pigate, Pigate.Repo,
-  username: "sa",
-  password: "sa2021@2",
+  username: "postgres",
+  password: "pigateDev!",
   database: "pigate_dev",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
@@ -20,8 +20,11 @@ config :pigate, PigateWeb.Endpoint,
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
-  watchers: [
-  ]
+  watchers: []
+
+config :pigate, Pigate.Mqtt.Connection,
+  host: "localhost",
+  port: 1833
 
 # ## SSL Support
 #

@@ -2,11 +2,12 @@ defmodule Pigate.Mqtt.Connection do
   @moduledoc """
   This contain MQTT logic relate
   """
-
   use GenServer
 
-  def start_link({hostname, host}) do
-    GenServer.start_link(__MODULE__, {hostname, host}, name: __MODULE__)
+  def config(), do: Application.fetch_env!(:pigate, __MODULE__)
+
+  def start_link({hostname}) do
+    GenServer.start_link(__MODULE__, {hostname}, name: __MODULE__)
   end
 
   def subscribe(topic, qos) do
@@ -21,10 +22,10 @@ defmodule Pigate.Mqtt.Connection do
     GenServer.call(__MODULE__, {:get_message, topic})
   end
 
-  def init({hostname, host}) do
+  def init({hostname}) do
     Tortoise.Connection.start_link(
       client_id: hostname,
-      server: {Tortoise.Transport.Tcp, host: host, port: 1883},
+      server: {Tortoise.Transport.Tcp, host: config()[:host], port: config()[:port]},
       handler: {Pigate.MQTT.Handler, []},
       subscriptions: [{"#", 0}]
     )
@@ -42,5 +43,4 @@ defmodule Pigate.Mqtt.Connection do
     Tortoise.publish(hostname, topic, message)
     {:noreply, {hostname, subscribed}}
   end
-
 end
